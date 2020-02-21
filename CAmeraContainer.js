@@ -77,46 +77,49 @@ class CameraContainer extends Component {
         }
     };
 
-    callGoogleVIsionApi = async (base64, name, password) => {
+    callGoogleVIsionApi = async (base64) => {
         let googleVisionRes = await fetch(config.googleCloud.api, {
             method: 'POST',
             headers: {
               Authorization:
-                     'Bearer (ya29.Il-_B9lpBJGbF_-lpWPiEK3_crqVYIhYexgiBwG71NdMzMCihZOhn_NygLP7fn_D9WURtvFs5g2umZ7sKNjQ_ToxeIKRlzB26maCK75GyIhXd-6rTKyIMUmz-RYacUQjsA)',
-                   'Content-Type': 'application/json',
+                     'Bearer (token)',
    },
     contentType: 'application/json',
             body: JSON.stringify({
 
-                "payload": [
+                "payload":
                     {
                         "image": {
                             "imageBytes": base64
                         },
 
+
                     }
-                ]
+
             })
         });
 
         await googleVisionRes.json()
-            .then(googleVisionRes => {
-                console.log("this is a response from server" + googleVisionRes)
-                if (googleVisionRes) {
-                    this.setState(
-                        {
-                            loading: false,
-                            googleVisionDetetion: googleVisionRes.responses[0]
-                        }
-                    )
-                    console.log('response', this.state.googleVisionDetetion);
-                }
-            }).catch((error) => { console.log("error" + error) })
+                 .then(googleVisionRes => {
+
+                      console.log(googleVisionRes);
+                     if (googleVisionRes) {
+                         this.setState(
+                             {
+                                 loading: false,
+                                 googleVisionDetetion: googleVisionRes.payload[0]
+                             }
+                         )
+                         console.log('this.is response', this.state.googleVisionDetetion);
+                     }
+                 }).catch((error) => { console.log("last" + error) })
+                 console.log(this.state.googleVisionDetetion)
     }
     activeCamera = () => {
       console.log("we are a camera")
         this.setState({
-            camera: true
+            camera: true,
+
 
         })
     }

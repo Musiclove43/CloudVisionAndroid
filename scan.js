@@ -44,17 +44,14 @@ const Scan = (props) => {
                         <View style={googleVisionDetetion ? styles.scanCardView : styles.cardView} >
                             <ScrollView>
 
-                                {googleVisionDetetion.webDetection.webEntities.map((data, index) => {
-                                    return (
-                                        <View key={index} style={{ borderWidth: 2, borderColor: 'black', margin: 10 }}>
-                                            <Text>entityId : {data.entityId}</Text>
-                                            <Text>score : {data.score}</Text>
-                                            <Text numberOfLines={1}>description: {data.description}</Text>
+
+
+                                        <View  style={{ borderWidth: 2, borderColor: 'black', margin: 10 }}>
+                                            <Text>Classification Score : {googleVisionDetetion.classification.score}</Text>
+                                            <Text>Display Name : {googleVisionDetetion.displayName}</Text>
+
                                         </View>
 
-                                    )
-                                })
-                                }
                             </ScrollView>
                         </View>
 
